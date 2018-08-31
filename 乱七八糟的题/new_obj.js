@@ -8,9 +8,33 @@ function GenerateId() {
     };
 }
 
-let a = new GenerateId();
-let b = new GenerateId();
-let c = new GenerateId();
+var a = new GenerateId();
+var b = new GenerateId();
+var c = new GenerateId();
+
+console.log(a.id) //1
+console.log(b.id) //2
+console.log(c.id) //3
+
+/**
+ * 方法二 不写原型里
+ */
+
+function GenerateId_() {
+    var i = 1;
+    GenerateId_ = function(){
+        return new function () {
+            this.id = i++;
+        };
+    }
+    return new function () {
+        this.id = i++;
+    };
+}
+
+var a = new GenerateId_();
+var b = new GenerateId_();
+var c = new GenerateId_();
 
 console.log(a.id) //1
 console.log(b.id) //2
