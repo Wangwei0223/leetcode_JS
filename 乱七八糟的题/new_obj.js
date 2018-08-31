@@ -21,7 +21,7 @@ console.log(c.id) //3
  */
 
 function GenerateId_() {
-    var i = 1;
+    var i = 1;  //模拟全局重定义
     GenerateId_ = function(){
         return new function () {
             this.id = i++;
