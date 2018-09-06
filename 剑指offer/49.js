@@ -1,3 +1,7 @@
+/**
+ * 位运算做加法
+ * @param {*} str 
+ */
 function StrToInt(str) {
     let res = 0, flag = 1;
     let n = str.length;
