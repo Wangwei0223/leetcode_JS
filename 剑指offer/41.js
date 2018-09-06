@@ -6,8 +6,31 @@
  * @param {*} sum 
  */
 
-function FindContinuousSequence(sum)
-{
+function FindContinuousSequence(sum) {
     // write code here
-    
+    //(first + first + i)*(i + 1)*2 = sum;
+    let a = 0, res = [], half = sum >> 1;
+    while (half--) {
+        a++;
+        let i = 1;
+        while ((i + 1) * (2 * a + i) < 2 * sum) {
+            i++;
+        }
+        if ((i + 1) * (2 * a + i) == 2 * sum) {
+            res.push([a, i]);
+        }
+    }
+
+    for (let i = 0; i < res.length; i++) {
+        for (let j = 2; j < res[i][1] + 1; j++) {
+            res[i].push(res[i][0] + j);
+        }
+        res[i][1] = res[i][0] + 1;
+    }
+
+    return res.sort(function (a, b) {
+        return a[0] - b[0];
+    });
 }
+
+console.log(FindContinuousSequence(50)); // 11 12 13 14
