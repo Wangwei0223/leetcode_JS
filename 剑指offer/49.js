@@ -1,5 +1,5 @@
 /**
- * 位运算做加法
+ * 字符转整数
  * @param {*} str 
  */
 function StrToInt(str) {
