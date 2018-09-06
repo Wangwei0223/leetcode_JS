@@ -1,10 +1,15 @@
 /**
- * 求1+2+3+...+n，要求不能使用乘除法、for、while、if、else、switch、case等关键字及条件判断语句（A?B:C）。
+ * 写一个函数，求两个整数之和，要求在函数体内不得使用+、-、*、/四则运算符号。
  * @param {*} n 
  */
 
-function Sum_Solution(n)
+function Add(num1, num2)
 {
     // write code here
-    return n&&Sum_Solution(n-1) + n; //用&&判断0终止
+    while(num2 != 0){
+        var temp = num1 ^ num2;
+        var num2 = (num1 & num2) << 1;
+        num1 = temp;
+    }
+    return num1;
 }
