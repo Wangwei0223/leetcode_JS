@@ -11,7 +11,7 @@ function rectCover(number)
     if(number === 2) return 2;
     var arr = [0, 1, 2];
     for(let i = 3; i <= number; i++){
-        arr[i] = arr[i - 2] + arr[i - 1];
+        arr[i] = arr[i - 2] + arr[i - 1]; // 就是上一个加上竖着放一个 + 上两个加上横着放两个
     }
     return arr[number];
 }
