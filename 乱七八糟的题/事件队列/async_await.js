@@ -3,8 +3,10 @@ async function async1() {
     await async2();
     console.log('async1 end');
 }
-async function async2() {
+async function async2() {  // async 返回的是Promise的处理结果 还不是return Promise.resolve(), 虽然能得到相同的效果 真正的感觉是resolve(Promise.resolve())
     console.log('async2');
+    return 'async2 return';
+    // 所以，当await操作符后面的表达式是一个Promise的时候，它的返回值，实际上就是Promise的回调函数resolve的参数
 }
 
 console.log('script start');
