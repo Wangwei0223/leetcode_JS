@@ -18,6 +18,11 @@ function printExclude(a, b) {
 
 printExclude(A, B);
 
+/**
+ * 
+ * @param {*} a 
+ * @param {*} b 
+ */
 function printExclude_(a, b){
 
 }
