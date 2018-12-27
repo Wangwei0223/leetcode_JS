@@ -218,3 +218,28 @@ function merge_(left, right) {
 console.log(mergeSort_([1, 3, 4, 2, 5]), result);
 
 console.log('=======逆序对=======');
+
+let result_ = [];
+
+function mergeSort_1(arr) {
+    if (arr.length === 1) return arr;
+    return merge_1(mergeSort_1(arr.slice(0, arr.length / 2)), mergeSort_1(arr.slice(arr.length / 2)));
+}
+
+function merge_1(left, right) {
+    let res = [];
+    while (left.length > 0 && right.length > 0) {
+        if (left[0] < right[0]) {
+            let cur = left.shift();
+            res.push(cur);
+            for(let i = 0 ; i < right.length; i++){
+                result_.push([cur, right[i]]);
+            }
+        } else {
+            res.push(right.shift());
+        }
+    }
+    return res.concat(left, right);
+}
+
+console.log(mergeSort_1([1, 3, 4, 2, 5]), result_);
