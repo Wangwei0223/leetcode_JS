@@ -170,3 +170,51 @@ function findMax(arr) {
 }
 
 console.log(findMax([1, 2, 4, 23, 5, 6, 7, 8, 3, 2, 2, 45, 5, 23, 4, 53, 23]));
+
+
+console.log('=======归并排序=======');
+function mergeSort(arr) { // slice 就不用Math.floor了, slice(0, 2.5)也是默认向下取整
+    if (arr.length === 1) return arr;
+    return merge(mergeSort(arr.slice(0, arr.length / 2)), mergeSort(arr.slice(arr.length / 2)));
+}
+
+function merge(left, right) {
+    let res = [];
+    while (left.length > 0 && right.length > 0) {
+        if (left[0] < right[0]) {
+            res.push(left.shift());
+        } else {
+            res.push(right.shift());
+        }
+    }
+    return res.concat(left, right);
+}
+
+console.log(mergeSort([1, 2, 4, 23, 5, 6, 7, 8, 3, 2, 2, 45, 5, 23, 4, 53, 23]));
+
+console.log('=======小和问题=======');
+
+let result = 0;
+
+function mergeSort_(arr) {
+    if (arr.length === 1) return arr;
+    return merge_(mergeSort_(arr.slice(0, arr.length / 2)), mergeSort_(arr.slice(arr.length / 2)));
+}
+
+function merge_(left, right) {
+    let res = [];
+    while (left.length > 0 && right.length > 0) {
+        if (left[0] < right[0]) {
+            let cur = left.shift();
+            res.push(cur);
+            result += cur * right.length; // 右边有多少数字比cur大, 产生right.length * cur个小和
+        } else {
+            res.push(right.shift());
+        }
+    }
+    return res.concat(left, right);
+}
+
+console.log(mergeSort_([1, 3, 4, 2, 5]), result);
+
+console.log('=======逆序对=======');
