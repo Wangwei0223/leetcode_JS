@@ -63,3 +63,32 @@ NetherlandFlag(arr_1, 5);
 
 console.log(arr_1);
 
+function QuickSort(arr, left, right) {
+    if (left < right) {
+        let temp = QuickSortPartition(arr, left, right);
+        QuickSort(arr, left, temp[0]);
+        QuickSort(arr, temp[1], right);
+    }
+
+}
+
+function QuickSortPartition(arr, left, right) {
+    let less = left - 1;
+    let more = right;
+    let cur = left;
+    // 以最后一个作为划分点
+    while (cur < more) {
+        if (arr[cur] === arr[right - 1]) {
+            cur++;
+        } else if (arr[cur] < arr[right - 1]) {
+            swap(arr, cur++, ++less);
+        } else {
+            swap(arr, --more, cur);
+        }
+    }
+    return [less + 1, more]; // 左闭右开
+}
+
+let arr_2 = [1, 6, 5, 7, 5, 8, 3, 6, 5, 5, 2, 2, 3, 5, 9, 9];
+QuickSort(arr_2, 0, arr_2.length);
+console.log('快排: ', arr_2);
