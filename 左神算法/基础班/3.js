@@ -80,32 +80,32 @@ console.log(arr.pop(), arr_.pop_());
 console.log(arr, arr_);
 
 console.log('======不使用built-in函数, 用单指针和max size模拟======');
-class Stack{
-    constructor(num){
-        if(num < 0) throw 'size must > 0';
+class Stack {
+    constructor(num) {
+        if (num < 0) throw 'size must > 0';
         this.max = num;
         this.index = 0; // index就是要push的位置
         this.arr = [];
         this.min = [];
     }
 
-    push(obj){
-        if(this.index === this.max) return;
+    push(obj) {
+        if (this.index === this.max) return;
         this.arr[this.index++] = obj;
-        if(this.min.length === 0) this.min.push(obj);
-        else if(this.min[this.min.length - 1] >= obj) this.min.push(obj);
-        else{
+        if (this.min.length === 0) this.min.push(obj);
+        else if (this.min[this.min.length - 1] >= obj) this.min.push(obj);
+        else {
             this.min.push(this.min[this.min.length - 1]);
         }
     }
 
-    pop(){
-        if(this.index === 0) return undefined;
+    pop() {
+        if (this.index === 0) return undefined;
         this.min.pop();
         return this.arr[--this.index]; // index - 1是要pop的位置
     }
 
-    getmin(){
+    getmin() {
         return this.min.pop();
     }
 
@@ -136,9 +136,9 @@ Array.prototype.shift_ = function () { // 内置的unshift返回的是数组长�
 let arr2 = [1, 2, 3];
 console.log(arr2.shift_(), arr2);
 console.log('======不使用built-in函数, 用双指针和记录当前的size模拟======');
-class Queue{
-    constructor(num){
-        if(num < 0) throw 'size mush > 0';
+class Queue {
+    constructor(num) {
+        if (num < 0) throw 'size mush > 0';
         this.max = num; // 约束整个队列大小
         this.start = 0;
         this.end = 0;
@@ -146,18 +146,18 @@ class Queue{
         this.arr = [];
     }
 
-    push(obj){
-        if(this.size === this.max) return 'Queue is full';
+    push(obj) {
+        if (this.size === this.max) return 'Queue is full';
         this.arr[this.end++] = obj;
         this.size++;
-        if(this.end === this.max) this.end = 0;
+        if (this.end === this.max) this.end = 0;
     }
 
-    poll(){
-        if(this.size === 0) return undefined;
+    poll() {
+        if (this.size === 0) return undefined;
         let res = this.arr[this.start++];
         this.size--;
-        if(this.start === this.max) this.start = 0;
+        if (this.start === this.max) this.start = 0;
         return res;
     }
 }
@@ -179,4 +179,87 @@ console.log(queue_.poll());
 console.log(queue_.poll());
 console.log(queue_);
 
-console.log('======队列模拟栈和栈模拟队列======');
+console.log('======队列模拟栈======');
+
+class MockStack {
+    constructor() {
+        this.queue_1 = [];
+        this.queue_2 = [];
+    }
+
+    push(obj) {
+        this.queue_1.push(obj);
+    }
+
+    /**
+     * 队列1全部倒入队列2, 留一个在队列1 || 队列2全部倒入队列1, 留一个在队列2, 注意全部倒, 留一个
+     */
+    poll() {
+        while (this.queue_1.length > 1) {
+            this.queue_2.push(this.queue_1.shift());
+        }
+    }
+
+    pop() {
+        if (this.queue_1.length === 0) return undefined;
+        this.poll();
+        let res = this.queue_1.shift();
+        //换一下队列1,2的引用
+        let temp = this.queue_1;
+        this.queue_1 = this.queue_2;
+        this.queue_2 = temp;
+        return res;
+    }
+}
+
+let mockStack = new MockStack();
+
+mockStack.push(1);
+mockStack.push(3);
+mockStack.push(2);
+console.log(mockStack.pop());
+console.log(mockStack.pop());
+console.log(mockStack.pop());
+console.log(mockStack.pop());
+
+console.log('======栈模拟队列======');
+class MockQueue{
+    constructor(){
+        this.data = [];
+        this.help = [];
+    }
+
+    push(obj){
+        this.data.push(obj)
+    }
+
+    /**
+     * 必须help栈为空的时候才可以倒, help栈有东西就从help出栈
+     */
+    poll(){
+        if(this.help.length === 0){ // help栈中有东西不能倒入
+            while(this.data.length > 0){
+                this.help.push(this.data.pop());
+            }
+        }
+    }
+
+    shift(){
+        this.poll(); // poll函数的写法让它可以发生在任何位置
+        return this.help.pop();
+    }
+}
+
+let mockQueue = new MockQueue();
+
+mockQueue.push(1);
+mockQueue.push(2);
+mockQueue.push(3);
+
+console.log(mockQueue.shift());
+console.log(mockQueue.shift());
+mockQueue.push(4);
+mockQueue.push(5);
+console.log(mockQueue.shift());
+console.log(mockQueue.shift());
+console.log(mockQueue.shift());
