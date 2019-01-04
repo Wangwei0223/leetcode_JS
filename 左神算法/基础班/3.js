@@ -86,16 +86,27 @@ class Stack{
         this.max = num;
         this.index = 0; // index就是要push的位置
         this.arr = [];
+        this.min = [];
     }
 
     push(obj){
         if(this.index === this.max) return;
         this.arr[this.index++] = obj;
+        if(this.min.length === 0) this.min.push(obj);
+        else if(this.min[this.min.length - 1] >= obj) this.min.push(obj);
+        else{
+            this.min.push(this.min[this.min.length - 1]);
+        }
     }
 
     pop(){
         if(this.index === 0) return undefined;
+        this.min.pop();
         return this.arr[--this.index]; // index - 1是要pop的位置
+    }
+
+    getmin(){
+        return this.min.pop();
     }
 
 }
@@ -106,6 +117,7 @@ stack.push(2);
 stack.push(3);
 stack.push(4);
 console.log(stack);
+console.log('min', stack.getmin());
 console.log(stack.pop());
 console.log(stack.pop());
 console.log(stack.pop());
@@ -166,3 +178,5 @@ console.log(queue_.poll());
 console.log(queue_.poll());
 console.log(queue_.poll());
 console.log(queue_);
+
+console.log('======队列模拟栈和栈模拟队列======');
