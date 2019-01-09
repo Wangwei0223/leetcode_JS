@@ -439,3 +439,48 @@ var detectCycle_ = function(head) {
  * 4. Loop1 === Loop2 取得交点之后把这个点当成终点, 复用无环链表相交的思路 
  * 5. Loop1 !== Loop2 Loop1.next Loop1继续往下走, Loop1转回自己了都没遇到Loop2说明各自成环, 不相交. Loop1遇到Loop2, 返回Loop1或者Loop2都对
  */
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+
+/**
+ * @param {ListNode} headA
+ * @param {ListNode} headB
+ * @return {ListNode}
+ */
+var getIntersectionNode = function(headA, headB) {
+    if(!headA || !headB) return null;
+    let n1 = headA, n2 = headB, n = 0, last1, last2;
+    while(n1){
+        n1 = n1.next;
+        n++;
+        if(!n1) last1 = n1;
+    }
+    
+    while(n2){
+        n2 = n2.next;
+        n--;
+        if(!n2) last2 = n2;
+    }
+    
+    if(last1 !== last2) return null;
+    
+    n1 = n >= 0 ? headA : headB;
+    n2 = n1 === headA ? headB : headA;
+    n = n > 0 ? n : -n;
+    while(n > 0){
+        n1 = n1.next;
+        n--;
+    }
+    
+    while(n1 !== n2){
+        n1 = n1.next;
+        n2 = n2.next;
+    }
+    
+    return n1;
+};
