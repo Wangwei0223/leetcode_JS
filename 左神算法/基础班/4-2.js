@@ -429,3 +429,13 @@ var detectCycle_ = function(head) {
     }
     return n1;
 };
+
+/**
+ * Leetcode 160 链表相交
+ * 思路:
+ * 1. 一个有环, 一个没环: 肯定不相交
+ * 2. 都无环, end相不相等. end不相等: 一定不相交. 取到两个链表的长度, 长的那个链表先走出长度差, 再长短一起走, 走到相交点
+ * 3. 两个都有环: 3个拓扑结构 1. 各自成环 2. 公共环起点 Loop1 === Loop2 3. 不同环起点 Loop1 !== Loop2
+ * 4. Loop1 === Loop2 取得交点之后把这个点当成终点, 复用无环链表相交的思路 
+ * 5. Loop1 !== Loop2 Loop1.next Loop1继续往下走, Loop1转回自己了都没遇到Loop2说明各自成环, 不相交. Loop1遇到Loop2, 返回Loop1或者Loop2都对
+ */
