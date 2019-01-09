@@ -234,3 +234,198 @@ var partition = function(head, x) {
         return ss;
     }
 };
+
+/**
+ * 复制带随机指针的链表 Leetcode 138
+ */
+
+ // 使用Hash表
+ /**
+ * Definition for singly-linked list with a random pointer.
+ * function RandomListNode(label) {
+ *     this.label = label;
+ *     this.next = this.random = null;
+ * }
+ */
+
+/**
+ * @param {RandomListNode} head
+ * @return {RandomListNode}
+ */
+
+// 准备额外空间hash表, 存新老节点对应关系
+var copyRandomList = function(head) {
+    if(!head) return head;
+    let n1 = head, n2, newhead, hash = new Map();
+    
+    while(n1){
+        let newnode = new RandomListNode(n1.label);
+        newnode.random = n1.random; // 这时random连接的还是旧节点, 需要从hash表找对应的新的
+        hash.set(n1, newnode);
+        if(!newhead){
+            n2 = newhead = newnode;
+        }else{
+            n2.next = newnode;
+            n2 = n2.next;
+        }
+        
+        n1 = n1.next;
+    }
+    
+    n2 = newhead;
+    while(n2){
+        if(n2.random){
+            let random = hash.get(n2.random);
+            n2.random = random;
+        }
+        n2 = n2.next;
+    }
+    return newhead;
+};
+
+/**
+ * 
+ */
+/**
+ * Definition for singly-linked list with a random pointer.
+ * function RandomListNode(label) {
+ *     this.label = label;
+ *     this.next = this.random = null;
+ * }
+ */
+
+/**
+ * @param {RandomListNode} head
+ * @return {RandomListNode}
+ */
+
+// 空间O(1)
+var copyRandomList = function(head) {
+    if(!head) return head;
+    let n1 = head, newnode, oldnext;
+    // 新老节点串联起来
+    while(n1){
+        newnode = new RandomListNode(n1.label);
+        oldnext = n1.next;
+        n1.next = newnode;
+        newnode.next = oldnext;
+        n1 = oldnext;
+    }
+    n1 = head;
+    // 重新串联random
+    while(n1){
+        newnode = n1.next;
+        if(n1.random){
+            newnode.random = n1.random.next;   
+        }else{
+            newnode.random = null;
+        }
+        n1 = newnode.next;
+    }
+    // 分离
+    n1 = head;
+    let newhead = n1.next;
+    while(n1){ //只用写n1就行 n1 存在 n1.next一定存在
+        newnode = n1.next;
+        n1.next = newnode.next;
+        n1 = newnode.next;
+        if(newnode.next){
+           newnode.next = newnode.next.next;  // newnode.next存在newnode.next.next一定存在, 因为newnode.next是老节点
+        }else{
+            newnode.next = null;
+        }
+        
+    }
+    return newhead;
+};
+
+/**
+ * Leetcode 141 环形链表
+ * 1. 快慢指针
+ * 2. HashSet
+ */
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+
+/**
+ * @param {ListNode} head
+ * @return {boolean}
+ */
+// 快慢指针
+var hasCycle = function(head) {
+    if(!head || !head.next) return false;
+    let n1 = head, n2 = head.next;
+    while(n1!==n2){
+        n1 = n1.next;
+        if(!n1 || !n2 || !n2.next) return false;
+        n2 = n2.next.next;
+    }
+    
+    return true;
+};
+
+// Hash表
+var hasCycle_ = function(head) {
+    if(!head) return false;
+    let n1 = head;
+    let set = new Set();
+    while(n1){
+        if(set.has(n1)) return true;
+        set.add(n1);
+        n1 = n1.next;
+    }
+    return false;
+};
+
+/**
+ * Leetcode 142 环形链表 返回环入口节点
+ * 1. 快慢指针
+ * 2. HashSet
+ */
+
+ //HashSet
+ /**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+// hash表
+var detectCycle = function(head) {
+    if(!head || !head.next) return null;
+    let n1 = head, set = new Set();
+    while(n1){
+        if(set.has(n1)) return n1;
+        set.add(n1);
+        n1 = n1.next;
+    }
+    return null;
+};
+
+// 快慢指针
+var detectCycle_ = function(head) {
+    if(!head || !head.next || !head.next.next) return null;
+    let n1 = head.next, n2 = head.next.next;
+    while(n1 !== n2){
+        n1 = n1.next;
+        if(!n1 || !n2 || !n2.next) return null;
+        n2 = n2.next.next;
+    }
+    n2 = head;
+    while(n1 !== n2){
+        n1 = n1.next;
+        n2 = n2.next;
+    }
+    return n1;
+};
