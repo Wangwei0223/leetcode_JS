@@ -87,12 +87,15 @@ class spiralOrderPrint {
         this.tC = 0;
         this.dR = arr.length - 1;
         this.dC = arr[0].length - 1;
+        this.res = [];
     }
 
     print() {
         while (this.tR <= this.dR && this.tC <= this.dC) {
             this.printEdge(this.matrix, this.tR++, this.tC++, this.dR--, this.dC--);
         }
+
+        console.log(this.res);
     }
     /**
      * 打印一圈
@@ -100,31 +103,31 @@ class spiralOrderPrint {
     printEdge(matrix, tR, tC, dR, dC) {
         if (tR === dR) { // 左上角和右下角在同一行
             for (let i = tC; i <= dC; i++) {
-                console.log(matrix[tR][i]);
+                this.res.push(matrix[tR][i]);
             }
         } else if (tC === dC) { // 同一列
             for (let i = tR; i <= dR; i++) {
-                console.log(matrix[i][tC]);
+                this.res.push(matrix[i][tC]);
             }
         } else {
             let curC = tC;
             let curR = tR;
             while (curC !== dC) {
-                console.log(matrix[tR][curC++])
+                this.res.push(matrix[tR][curC++])
             }
             while (curR !== dR) {
-                console.log(matrix[curR++][dC]);
+                this.res.push(matrix[curR++][dC]);
             }
             while (curC !== tC) {
-                console.log(matrix[dR][curC--]);
+                this.res.push(matrix[dR][curC--]);
             }
             while (curR !== tR) {
-                console.log(matrix[curR--][tC]);
+                this.res.push(matrix[curR--][tC]);
             }
         }
     }
 }
-let arr = [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]];
+let arr = [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]];
 let spiral = new spiralOrderPrint(arr);
 
 spiral.print();
@@ -160,7 +163,7 @@ class rotateSquare {
     rotateEdge(matrix, tr, dr, tc, dc) {
         let times = dc - tc;
         let tmp;
-        for(let i = 0; i < times; i++){
+        for (let i = 0; i < times; i++) {
             tmp = matrix[tr][tc + i];
             matrix[tr][tc + i] = matrix[dr - i][tc];
             matrix[dr - i][tc] = matrix[dr][dc - i];

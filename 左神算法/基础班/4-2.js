@@ -46,7 +46,7 @@ let zigzag = new zigzagMatrix(arr);
 zigzag.printMatrix();
 
 /**
- * 搜索二维矩阵 Leetcode 74 210
+ * 搜索二维矩阵 Leetcode 74 240
  */
 /**
  * @param {number[][]} matrix
