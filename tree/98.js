@@ -35,3 +35,33 @@ var isValidBST = function(root) {
     
     return flag;
 };
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+var isValidBST = function(root) {
+    if(!root) return true;
+    let stack = [], cur = root, res = [];
+    while(stack.length > 0 || cur){
+        if(cur){
+            stack.push(cur);
+            cur = cur.left;
+        }else{
+            cur = stack.pop();
+            if(res.length > 0 && cur.val <= res[res.length - 1]){
+                return false;
+            }
+            res.push(cur.val);
+            cur = cur.right;
+        }
+    }
+    return true;
+};
