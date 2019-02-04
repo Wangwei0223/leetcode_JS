@@ -45,3 +45,31 @@ var maxDepth = function(root){
     if(!root) return 0;
     return 1 + Math.max(maxDepth(root.left),maxDepth(root.right));
 }
+
+
+class ReturnData{
+    constructor(isB, h){
+        this.isB = isB;
+        this.h = h;
+    }
+}
+
+var processor = function(node){
+    if(!node) return new ReturnData(true, 0);
+    
+    let left = processor(node.left);
+    
+    if(!left.isB) return new ReturnData(false, 0);
+    
+    let right = processor(node.right);
+    
+    if(!right.isB) return new ReturnData(false, 0);
+    
+    if(Math.abs(left.h - right.h) > 1) return new ReturnData(false, 0);
+    
+    return new ReturnData(true, Math.max(left.h, right.h) + 1);
+}
+
+var isBalanced = function(root){
+    return processor(root).isB;
+}
