@@ -18,3 +18,5 @@ c.set('a', 12);
 console.log(c.get('a'));
 c.delete('a');
 console.log(c.has('a'));
+
+console.log('word'.slice(0, 4));
