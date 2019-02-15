@@ -140,3 +140,14 @@ var count = function (n) {
 }
 
 console.log(count(6));
+
+/**
+ * leetcode 78
+ * 
+ */
+
+/**
+ * 
+ * 给一个数组arr. 一个aim, 看看能不能加出 aim
+ * 
+ */
