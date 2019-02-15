@@ -92,7 +92,7 @@ function QuickSortPartition(arr, left, right) {
     let cur = left;
     // 以最后一个作为划分点
     while (cur < more) {
-        if (arr[cur] === arr[right - 1]) {
+        if (arr[cur] === arr[right - 1]) { //这个地方写错了, 最后一个位置变了
             cur++;
         } else if (arr[cur] < arr[right - 1]) {
             swap(arr, cur++, ++less);
