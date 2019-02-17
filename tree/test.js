@@ -14,3 +14,10 @@ console.log(parseInt(1 / 2));
 let res1 = [[1, 2, 3, 4], [2, 3, 4, 5], [2, 4, 5, 6]];
 
 console.log(res1.indexOf(3));
+
+
+var s = function (param) { 
+    console.log('s');
+ }
+
+ s();
