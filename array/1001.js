@@ -8,7 +8,7 @@ var gridIllumination = function(N, lamps, queries) {
     if(N === 0 || lamps.length === 0) return [];
     let lamp_set = new Set();
     for(let i of lamps){
-        lamp_set.add('' + i[0] + ',' + i[1]);
+        lamp_set.add(i.toString());
     }
     
     let hori = new Map();
@@ -54,9 +54,9 @@ var gridIllumination = function(N, lamps, queries) {
         for(let dx of [-1, 0, 1]){
             for(let dy of [-1, 0, 1]){
                 let xp = item[0] + dx, yp = item[1] + dy;
-                if(lamp_set.has('' + xp + ',' + yp)){
+                if(lamp_set.has([xp, yp].toString())){
                     
-                    lamp_set.delete('' + xp + ',' + yp);
+                    lamp_set.delete([xp, yp].toString());
                     
                     hori.set(xp, hori.get(xp) - 1);
                     if(hori.get(xp) === 0) hori.delete(xp);
