@@ -1,6 +1,5 @@
 /**
  * 997. Find the Town Judge
-
  * @param {number} N
  * @param {number[][]} trust
  * @return {number}
