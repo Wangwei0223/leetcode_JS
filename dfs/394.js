@@ -66,3 +66,5 @@ var decodeString = function(s) {
     }
     return str;
 };
+
+console.log('a')
