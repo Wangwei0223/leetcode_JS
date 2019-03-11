@@ -1,4 +1,5 @@
 /**
+ * 1007. Minimum Domino Rotations For Equal Row
  * @param {number[]} A
  * @param {number[]} B
  * @return {number}

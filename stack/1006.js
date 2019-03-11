@@ -1,4 +1,5 @@
 /**
+ * 1006. Clumsy Factorial
  * @param {number} N
  * @return {number}
  */
@@ -26,8 +27,6 @@ var clumsy = function(N) {
 
     if(pre1 !== pre) temp.push(pre);
     
-    if(temp.length === 0) return 1;
-    console.log(temp);
 
     let idx = 0, pre2 = temp[0];
     while(idx + 1 < temp.length){
