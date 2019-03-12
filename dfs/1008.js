@@ -7,7 +7,6 @@
  */
 /**
  * 1008. Construct Binary Search Tree from Preorder Traversal
-
  * @param {number[]} preorder
  * @return {TreeNode}
  */
