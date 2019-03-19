@@ -34,7 +34,7 @@ var dfs = function(root){
             next = next.right;
             break;
         }
-        next = next.next; //都没有再往右移
+        next = next.next; //都没有再往右移, 这就是为什么要先dfs右边
     }
     if(root.right) root.right.next = next;
     if(root.left) root.left.next = root.right ? root.right : next;
