@@ -4,6 +4,7 @@
  * @param {number} S
  * @return {number}
  */
+
 var findTargetSumWays = function(nums, S) {
     if(nums.length === 0) return 0;
     let res = [0];
