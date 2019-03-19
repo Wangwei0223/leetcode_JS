@@ -31,7 +31,7 @@ var dfs = function(board, r, c){
         }
     }
     board[r][c] = count > 0 ? '' + count : 'B';
-    //确保是B才去递归
+    // 确保是B才去递归
     if(count === 0){
         for(let i of neighbor){
             dfs(board, i[0], i[1]);
