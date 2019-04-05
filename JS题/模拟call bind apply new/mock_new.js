@@ -35,4 +35,3 @@ function Car_(name){
 let obj_ = new Car_('Benz');
 
 console.log(obj_);
-
