@@ -7,3 +7,18 @@ function foo() {
 }
 
 foo(); 
+
+var a = 0;
+
+var foo = {
+    a: 2,
+    bar: function () {
+        return this.a;
+    },
+}
+
+if((false || foo.bar)()){
+    console.log(1);
+}else{
+    console.log(0);
+}
