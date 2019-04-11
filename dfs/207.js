@@ -32,6 +32,7 @@ var canFinish = function(numCourses, prerequisites){
 
 
 var dfs = function(graph, i, visit){
+    if(visit[i] === 1) return true;
     if(visit[i] === -1){
         return false;
     }
