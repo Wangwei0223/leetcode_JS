@@ -26,7 +26,7 @@ var uniquePathsIII = function(grid) {
 var dfs = function(grid, r, c, res, total){
     if(r >= grid.length || c >= grid[0].length || r < 0 || c < 0 || grid[r][c] === -1) return;
     total--;
-    if(total < 0) return;
+    // if(total < 0) return; // 不需要
     if(grid[r][c] === 2){
         if(total === 0) res[0] += 1;
         return;
