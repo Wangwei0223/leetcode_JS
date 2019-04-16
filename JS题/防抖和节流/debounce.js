@@ -11,10 +11,10 @@ function debounce_(func, wait) {
 }
 
 // 第二版: 考虑 this 和 event
-function debounce(func, wait) {
+function debounce__(func, wait) {
     var timeout;
     return function () {
-        var context = this, args = arguments; // this 是 container 
+        var context = this, args = arguments; // this 是 container, arguments 是 e
         clearTimeout(timeout);
         timeout = setTimeout(function () {
             func.apply(context, args);
@@ -29,4 +29,34 @@ function getUserAction(e) {
     console.log(e);
 };
 
-container.onmousemove = debounce(getUserAction, 1000);
+// 第三版 考虑立即执行 + 取消
+function debounce(func, wait, immediate){
+    let timeout, result;
+
+    let debounced = function(){
+        let context = this, args = arguments;
+        if(timeout) clearTimeout(timeout);
+        if(immediate){
+            // 执行过就不再执行
+            let callNow = !timeout;
+            timeout = setTimeout(function(){
+                timeout = null;
+            }, wait); // 间隔wait之后 timeout才会变为null, callNow才会变为true
+            if(callNow) result = func.apply(context, args);
+        }else{
+            timeout = setTimeout(function(){
+                func.apply(context, args);
+            }, wait);
+        }
+        return result;
+    }
+
+    debounced.cancel = function(){
+        clearTimeout(timeout);
+        timeout = null;
+    }
+
+    return debounced;
+}
+
+container.onmousemove = debounce(getUserAction, 1000, true);
