@@ -6,7 +6,7 @@
  * 缺点, 没法使用instanceof, 就是没__proto__
  */
 function createObject() {
-    let o = new Object;
+    let o = new Object();
     o.name = 'wang wei';
     o.age = 24;
     o.getName = function () {
@@ -82,22 +82,22 @@ console.log(p2.getName(), p3.getName(), p2.getName === p3.getName); // 最后是
 
 
 // 注意：使用动态原型模式时，不能用对象字面量重写原型
-function Person(name) {
+function Person_(name) {
     this.name = name;
     if (typeof this.getName != "function") {
-        Person.prototype = {
+        Person_.prototype = {
             constructor: Person,
             getName: function () {
                 console.log(this.name);
             }
         }
+        return new Person_(name); //改正: 再new一遍
     }
-
-    // return new Person(name); 改正: 再new一遍
+    // return new Person_(name); //改正: 再new一遍 写外面 Maximum call stack size exceeded, 写外面肯定不行, 无限循环了 
 }
 
-var person1 = new Person('kevin');
-var person2 = new Person('daisy');
+var person1 = new Person_('kevin');
+var person2 = new Person_('daisy');
 
 // 报错 并没有该方法
 person1.getName();
