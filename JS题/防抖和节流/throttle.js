@@ -21,7 +21,8 @@ function throttle_(func, wait){
     }
 }
 
-function throttle(func, wait){
+// 使用定时器
+function throttle__(func, wait){
     let timeout, context, arg;
     return function(){
         context = this;
@@ -33,6 +34,34 @@ function throttle(func, wait){
             }, wait);
         }
     }
+}
+
+function throttle(func, wait){
+    let timeout, context, args, result, prev = 0;
+
+    let throttled = function() {
+        let now = +new Date();
+        context = this;
+        args = arguments;
+        let remain = wait - (now - prev);
+        if(remain <= 0 || remain > wait){
+            if(timeout){
+                clearTimeout(timeout);
+                timeout = null;
+            }
+            prev = +new Date();
+            func.apply(context, args);
+        }else if(!timeout){ 
+            // 没设置timeout的话
+            timeout = setTimeout(function(){
+                prev = +new Date();
+                timeout = null;
+                func.apply(context, args);
+            }, remain);
+        }
+
+    };
+    return throttled;
 }
 
 container.onmousemove = throttle(getUserAction, 1000);
