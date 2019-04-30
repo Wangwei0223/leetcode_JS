@@ -30,28 +30,28 @@ function getUserAction(e) {
 };
 
 // 第三版 考虑立即执行 + 取消
-function debounce(func, wait, immediate){
+function debounce(func, wait, immediate) {
     let timeout, result;
 
-    let debounced = function(){
+    let debounced = function () {
         let context = this, args = arguments;
-        if(timeout) clearTimeout(timeout);
-        if(immediate){
+        if (timeout) clearTimeout(timeout);
+        if (immediate) {
             // 执行过就不再执行
             let callNow = !timeout;
-            timeout = setTimeout(function(){
+            timeout = setTimeout(function () {
                 timeout = null;
             }, wait); // 间隔wait之后 timeout才会变为null, callNow才会变为true
-            if(callNow) result = func.apply(context, args);
-        }else{
-            timeout = setTimeout(function(){
+            if (callNow) result = func.apply(context, args);
+        } else {
+            timeout = setTimeout(function () {
                 func.apply(context, args);
             }, wait);
         }
         return result;
     }
 
-    debounced.cancel = function(){
+    debounced.cancel = function () {
         clearTimeout(timeout);
         timeout = null;
     }
@@ -60,3 +60,44 @@ function debounce(func, wait, immediate){
 }
 
 container.onmousemove = debounce(getUserAction, 1000, true);
+
+// 无立即执行
+function debounce(func, wait, cb) {
+    let timeout;
+
+    return function(){
+        let $this = this, args = arguments;
+        clearTimeout(timeout);
+        timeout = setTimeout(function(){
+            let res = func.apply($this, args);
+            cb && cb(res);
+        }, wait);
+    }
+}
+
+// 立即执行
+function debounce(func, wait, imme, cb){
+    let timeout;
+
+    return function(){
+        let $this = this, args = arguments, res;
+        let called = false;
+        if(!timeout) clearInterval(timeout);
+        if(imme){
+            called = !timeout;
+            timeout = setTimeout(function(){
+                timeout = null;
+            }, wait);
+            if(called){
+                res = func.apply($this, args);
+            }
+        }else{
+            timeout = setTimeout(function(){
+                let res = func.apply($this, args);
+                cb && cb(res);
+            }, wait);
+        }
+
+        return res;
+    }
+}
