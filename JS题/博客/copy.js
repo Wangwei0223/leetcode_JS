@@ -28,3 +28,14 @@ var shallowCopy = function (obj) {
     }
     return newObj;
 }
+
+var deepCopy = function(obj){
+    if(typeof obj !== 'object') return obj;
+    let newObj = obj instanceof Array ? [] : {};
+    for(let i in obj){
+        if(obj.hasOwnProperty(i)){
+            newObj[i] = typeof obj[i] === 'object' ? deepCopy(obj[i]) : obj[i];
+        }
+    }
+    return newObj;
+}
